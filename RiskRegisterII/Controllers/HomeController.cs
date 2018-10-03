@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using RiskRegisterII.Models;
+using RiskRegister.Models;
 
-namespace RiskRegisterII.Controllers
+namespace RiskRegister.Controllers
 {
     public class HomeController : Controller
     {
@@ -33,5 +33,6 @@ namespace RiskRegisterII.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }

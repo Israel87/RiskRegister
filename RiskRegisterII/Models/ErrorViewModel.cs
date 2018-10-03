@@ -1,6 +1,6 @@
 using System;
 
-namespace RiskRegisterII.Models
+namespace RiskRegister.Models
 {
     public class ErrorViewModel
     {
