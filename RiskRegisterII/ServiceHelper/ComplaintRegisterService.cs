@@ -68,11 +68,11 @@ namespace RiskRegisterII.ServiceHelper
             if (_getComplaintById != null)
             {
                 var existingDetails = _getComplaintById;
-                existingDetails.NameofClient = _getComplaintById.NameofClient;
-                existingDetails.Description = _getComplaintById.Description;
-                existingDetails.ContactPerson = _getComplaintById.ContactPerson;
-                existingDetails.PhoneNumber = _getComplaintById.PhoneNumber;
-                existingDetails.EmailAddress = _getComplaintById.EmailAddress;
+                existingDetails.NameofClient = complaintRegister.NameofClient;
+                existingDetails.Description = complaintRegister.Description;
+                existingDetails.ContactPerson = complaintRegister.ContactPerson;
+                existingDetails.PhoneNumber = complaintRegister.PhoneNumber;
+                existingDetails.EmailAddress = complaintRegister.EmailAddress;
 
                 _riskRegisterDbContext.complaintRegisters.Update(existingDetails);
                 _riskRegisterDbContext.SaveChanges();
