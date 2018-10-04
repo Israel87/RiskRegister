@@ -60,7 +60,7 @@ namespace RiskRegisterII.ServiceHelper
             if(_getRiskType != null)
             {
                 var _existingRiskType = _getRiskType;
-                _existingRiskType.Name = _getRiskType.Name;
+                _existingRiskType.Name = riskType.Name;
 
                 _riskRegisterDbContext.riskTypes.Update(_existingRiskType);
                 _riskRegisterDbContext.SaveChanges();

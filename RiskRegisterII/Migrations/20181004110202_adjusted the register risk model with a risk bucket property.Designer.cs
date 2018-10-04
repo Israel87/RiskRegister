@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RiskRegisterII.Data;
 
 namespace RiskRegisterII.Migrations
 {
     [DbContext(typeof(RiskRegisterDbContext))]
-    partial class RiskRegisterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181004110202_adjusted the register risk model with a risk bucket property")]
+    partial class adjustedtheregisterriskmodelwithariskbucketproperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

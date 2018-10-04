@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RiskRegisterII.Data;
 
 namespace RiskRegisterII.Migrations
 {
     [DbContext(typeof(RiskRegisterDbContext))]
-    partial class RiskRegisterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181003152637_adjusted the RiskRegister Model")]
+    partial class adjustedtheRiskRegisterModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -192,27 +194,6 @@ namespace RiskRegisterII.Migrations
                     b.HasIndex("RiskTypeId");
 
                     b.ToTable("errorRegisters");
-                });
-
-            modelBuilder.Entity("RiskRegisterII.Models.RegisterRisk", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Activity");
-
-                    b.Property<string>("InherentRisk");
-
-                    b.Property<string>("LoggedBy");
-
-                    b.Property<string>("Mitigants");
-
-                    b.Property<string>("RiskBucket");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("riskRegisters");
                 });
 
             modelBuilder.Entity("RiskRegister.Models.ActionTaken", b =>

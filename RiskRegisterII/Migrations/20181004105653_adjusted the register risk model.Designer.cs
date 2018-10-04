@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RiskRegisterII.Data;
 
 namespace RiskRegisterII.Migrations
 {
     [DbContext(typeof(RiskRegisterDbContext))]
-    partial class RiskRegisterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181004105653_adjusted the register risk model")]
+    partial class adjustedtheregisterriskmodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,11 +121,15 @@ namespace RiskRegisterII.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<int?>("RegisterRiskId");
+
                     b.Property<int>("Status");
 
                     b.Property<string>("ViewId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RegisterRiskId");
 
                     b.ToTable("riskTypes");
                 });
@@ -208,8 +214,6 @@ namespace RiskRegisterII.Migrations
 
                     b.Property<string>("Mitigants");
 
-                    b.Property<string>("RiskBucket");
-
                     b.HasKey("Id");
 
                     b.ToTable("riskRegisters");
@@ -227,6 +231,13 @@ namespace RiskRegisterII.Migrations
                     b.HasOne("RiskRegister.Models.RiskType", "RiskType")
                         .WithMany()
                         .HasForeignKey("RiskTypeId");
+                });
+
+            modelBuilder.Entity("RiskRegister.Models.RiskType", b =>
+                {
+                    b.HasOne("RiskRegisterII.Models.RegisterRisk")
+                        .WithMany("RiskTypes")
+                        .HasForeignKey("RegisterRiskId");
                 });
 
             modelBuilder.Entity("RiskRegisterII.Models.ErrorRegisterModel", b =>
