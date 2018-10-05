@@ -1,0 +1,69 @@
+﻿@model RiskRegisterII.Models.RegisterRisk
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>RegisterRisk</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Activity)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Activity)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RiskTypeId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RiskTypeId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InherentRisk)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InherentRisk)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Mitigants)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Mitigants)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LoggedBy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LoggedBy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

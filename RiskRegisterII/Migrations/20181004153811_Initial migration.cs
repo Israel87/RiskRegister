@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RiskRegisterII.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Initialmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -21,6 +21,25 @@ namespace RiskRegisterII.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_companies", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "complaintRegisters",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    NameofClient = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    EmailAddress = table.Column<string>(nullable: true),
+                    DateReceived = table.Column<DateTime>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    ContactPerson = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_complaintRegisters", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -70,7 +89,9 @@ namespace RiskRegisterII.Migrations
                     Remark = table.Column<string>(nullable: true),
                     RiskTypeId = table.Column<int>(nullable: false),
                     CompanyId = table.Column<int>(nullable: false),
-                    DepartmentId = table.Column<int>(nullable: false)
+                    DepartmentId = table.Column<int>(nullable: false),
+                    DateUpdated = table.Column<DateTime>(nullable: true),
+                    UpdatedBy = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -118,6 +139,31 @@ namespace RiskRegisterII.Migrations
                         principalTable: "riskTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "riskRegisters",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Activity = table.Column<string>(nullable: true),
+                    RiskTypeId = table.Column<int>(nullable: false),
+                    InherentRisk = table.Column<string>(nullable: true),
+                    Mitigants = table.Column<string>(nullable: true),
+                    LoggedBy = table.Column<string>(nullable: true),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    Status = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_riskRegisters", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_riskRegisters_riskTypes_RiskTypeId",
+                        column: x => x.RiskTypeId,
+                        principalTable: "riskTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -169,6 +215,11 @@ namespace RiskRegisterII.Migrations
                 name: "IX_riskMonitors_RiskTypeId",
                 table: "riskMonitors",
                 column: "RiskTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_riskRegisters_RiskTypeId",
+                table: "riskRegisters",
+                column: "RiskTypeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -177,7 +228,13 @@ namespace RiskRegisterII.Migrations
                 name: "ActionTaken");
 
             migrationBuilder.DropTable(
+                name: "complaintRegisters");
+
+            migrationBuilder.DropTable(
                 name: "errorRegisters");
+
+            migrationBuilder.DropTable(
+                name: "riskRegisters");
 
             migrationBuilder.DropTable(
                 name: "riskMonitors");

@@ -43,6 +43,7 @@ namespace RiskRegisterII
             services.AddScoped<ICompany, CompanyService>((arg) => new CompanyService(services.BuildServiceProvider().GetRequiredService<RiskRegisterDbContext>()));
             services.AddScoped<IRiskType, RiskTypeService>((arg) => new RiskTypeService(services.BuildServiceProvider().GetRequiredService<RiskRegisterDbContext>()));
             services.AddScoped<IComplaintRegister, ComplaintRegisterService>((arg) => new ComplaintRegisterService(services.BuildServiceProvider().GetRequiredService<RiskRegisterDbContext>()));
+            services.AddScoped<IRegisterRisk, RegisterRiskService>((arg) => new RegisterRiskService(services.BuildServiceProvider().GetRequiredService<RiskRegisterDbContext>()));
 
         }
 

@@ -10,8 +10,8 @@ using RiskRegisterII.Data;
 namespace RiskRegisterII.Migrations
 {
     [DbContext(typeof(RiskRegisterDbContext))]
-    [Migration("20181002115140_edited complaint register")]
-    partial class editedcomplaintregister
+    [Migration("20181005102524_testing the register risk model2")]
+    partial class testingtheregisterriskmodel2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -136,15 +136,17 @@ namespace RiskRegisterII.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ContactDetails");
-
                     b.Property<string>("ContactPerson");
 
                     b.Property<DateTime>("DateReceived");
 
                     b.Property<string>("Description");
 
+                    b.Property<string>("EmailAddress");
+
                     b.Property<string>("NameofClient");
+
+                    b.Property<string>("PhoneNumber");
 
                     b.Property<int>("Status");
 
@@ -194,6 +196,33 @@ namespace RiskRegisterII.Migrations
                     b.ToTable("errorRegisters");
                 });
 
+            modelBuilder.Entity("RiskRegisterII.Models.RegisterRisk", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Activity");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("InherentRisk");
+
+                    b.Property<string>("LoggedBy");
+
+                    b.Property<string>("Mitigants");
+
+                    b.Property<int>("RiskTypeId");
+
+                    b.Property<int>("Status");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RiskTypeId");
+
+                    b.ToTable("riskRegisters");
+                });
+
             modelBuilder.Entity("RiskRegister.Models.ActionTaken", b =>
                 {
                     b.HasOne("RiskRegister.Models.RiskMonitor")
@@ -220,6 +249,14 @@ namespace RiskRegisterII.Migrations
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("RiskRegister.Models.RiskType", "RiskType")
+                        .WithMany()
+                        .HasForeignKey("RiskTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RiskRegisterII.Models.RegisterRisk", b =>
+                {
                     b.HasOne("RiskRegister.Models.RiskType", "RiskType")
                         .WithMany()
                         .HasForeignKey("RiskTypeId")

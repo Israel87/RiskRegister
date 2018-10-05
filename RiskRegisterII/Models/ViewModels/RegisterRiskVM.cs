@@ -6,16 +6,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using static RiskRegister.CustomEnum.Enum;
 
-namespace RiskRegisterII.Models
+namespace RiskRegisterII.Models.ViewModels
 {
-    public class RegisterRisk
+    public class RegisterRiskVM
     {
         public int Id { get; set; }
-        [DisplayName("Activity")]
         public string Activity { get; set; }
         [DisplayName("Risk Type")]
-        public int RiskTypeId { get; set; }
-        public RiskType RiskType { get; set; }
+        public string RiskTypeName { get; set; }
         [DisplayName("Inherent Risk")]
         public string InherentRisk { get; set; }
         [DisplayName("Mitigants")]
@@ -24,6 +22,6 @@ namespace RiskRegisterII.Models
         public string LoggedBy { get; set; }
         public DateTime DateCreated { get; set; }
         public ProcessStatus Status { get; set; }
-
     }
+
 }

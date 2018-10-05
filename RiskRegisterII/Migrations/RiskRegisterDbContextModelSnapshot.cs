@@ -202,15 +202,21 @@ namespace RiskRegisterII.Migrations
 
                     b.Property<string>("Activity");
 
+                    b.Property<DateTime>("DateCreated");
+
                     b.Property<string>("InherentRisk");
 
                     b.Property<string>("LoggedBy");
 
                     b.Property<string>("Mitigants");
 
-                    b.Property<string>("RiskBucket");
+                    b.Property<int>("RiskTypeId");
+
+                    b.Property<int>("Status");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RiskTypeId");
 
                     b.ToTable("riskRegisters");
                 });
@@ -241,6 +247,14 @@ namespace RiskRegisterII.Migrations
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("RiskRegister.Models.RiskType", "RiskType")
+                        .WithMany()
+                        .HasForeignKey("RiskTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RiskRegisterII.Models.RegisterRisk", b =>
+                {
                     b.HasOne("RiskRegister.Models.RiskType", "RiskType")
                         .WithMany()
                         .HasForeignKey("RiskTypeId")

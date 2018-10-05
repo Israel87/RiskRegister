@@ -10,8 +10,8 @@ using RiskRegisterII.Data;
 namespace RiskRegisterII.Migrations
 {
     [DbContext(typeof(RiskRegisterDbContext))]
-    [Migration("20181003092909_edited the complaint register model")]
-    partial class editedthecomplaintregistermodel
+    [Migration("20181004153811_Initial migration")]
+    partial class Initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -196,6 +196,33 @@ namespace RiskRegisterII.Migrations
                     b.ToTable("errorRegisters");
                 });
 
+            modelBuilder.Entity("RiskRegisterII.Models.RegisterRisk", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Activity");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("InherentRisk");
+
+                    b.Property<string>("LoggedBy");
+
+                    b.Property<string>("Mitigants");
+
+                    b.Property<int>("RiskTypeId");
+
+                    b.Property<int>("Status");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RiskTypeId");
+
+                    b.ToTable("riskRegisters");
+                });
+
             modelBuilder.Entity("RiskRegister.Models.ActionTaken", b =>
                 {
                     b.HasOne("RiskRegister.Models.RiskMonitor")
@@ -222,6 +249,14 @@ namespace RiskRegisterII.Migrations
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("RiskRegister.Models.RiskType", "RiskType")
+                        .WithMany()
+                        .HasForeignKey("RiskTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RiskRegisterII.Models.RegisterRisk", b =>
+                {
                     b.HasOne("RiskRegister.Models.RiskType", "RiskType")
                         .WithMany()
                         .HasForeignKey("RiskTypeId")
