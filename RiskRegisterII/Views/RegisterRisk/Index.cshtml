@@ -1,19 +1,23 @@
 ﻿@model IEnumerable<RiskRegisterII.Models.ViewModels.RegisterRiskVM>
+    <br /><br />
 
-@{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
-<h3>Risk Register</h3>
-<br/>
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<br/>
-<table class="table">
-    <thead>
-        <tr>
+    @{
+        ViewData["Title"] = "Risk Register";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+
+   
+
+    }
+
+    <br />
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <br /><br />
+    <table class="table">
+        <thead>
+            <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.Activity)
                 </th>
@@ -35,39 +39,41 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Status)
                 </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Activity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RiskTypeName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InherentRisk)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Mitigants)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LoggedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateCreated)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Activity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RiskTypeName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InherentRisk)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mitigants)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LoggedBy)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateCreated)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br /><br /><br />

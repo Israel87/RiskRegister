@@ -23,7 +23,7 @@ namespace RiskRegisterII.ServiceHelper
             {
                 if (department != null)
                 {
-                    _riskRegisterDbContext.departments.Add(department);
+                    _riskRegisterDbContext.Departments.Add(department);
                     _riskRegisterDbContext.SaveChanges();
                     return department.Id;
                 }
@@ -38,19 +38,19 @@ namespace RiskRegisterII.ServiceHelper
 
         public ICollection<Department> AllDepartments()
         {
-            return _riskRegisterDbContext.departments.ToList();
+            return _riskRegisterDbContext.Departments.ToList();
         }
 
         public Department GetDepartment(int Id)
         {
-            return _riskRegisterDbContext.departments.FirstOrDefault(dept =>dept.Id == Id);
+            return _riskRegisterDbContext.Departments.FirstOrDefault(dept =>dept.Id == Id);
         }
 
 
         public void DeleteDepartment(int Id)
         {
             var _getDepartment = GetDepartment(Id);
-            _riskRegisterDbContext.departments.Remove(_getDepartment);
+            _riskRegisterDbContext.Departments.Remove(_getDepartment);
             _riskRegisterDbContext.SaveChanges();
         }
 
@@ -61,7 +61,7 @@ namespace RiskRegisterII.ServiceHelper
             {
                 var existingDetails = _getDepartment;
                 existingDetails.Name = _getDepartment.Name;
-                _riskRegisterDbContext.departments.Update(existingDetails);
+                _riskRegisterDbContext.Departments.Update(existingDetails);
                 _riskRegisterDbContext.SaveChanges();
                 return existingDetails.Id;
             }

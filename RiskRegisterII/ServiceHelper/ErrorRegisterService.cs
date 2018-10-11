@@ -27,7 +27,7 @@ namespace RiskRegisterII.ServiceHelper
                         errorRegister.DateCreated = DateTime.Now;
                         errorRegister.Status = RiskRegister.CustomEnum.Enum.ProcessStatus.Pending;
                         errorRegister.ErrorStatus = RiskRegister.CustomEnum.Enum.ErrorRegisterStatus.Unresolved;
-                        _riskRegisterDbContext.errorRegisters.Add(errorRegister);
+                        _riskRegisterDbContext.ErrorRegisters.Add(errorRegister);
                         _riskRegisterDbContext.SaveChanges();
                         return errorRegister.Id;
                 }
@@ -46,12 +46,12 @@ namespace RiskRegisterII.ServiceHelper
         //}
         public ICollection<ErrorRegisterModel> AllErrorRegisters()
         {
-            return _riskRegisterDbContext.errorRegisters.ToList();
+            return _riskRegisterDbContext.ErrorRegisters.ToList();
         }
 
          public ErrorRegisterModel GetErrorRegister(int Id)
         {
-            var _getErrorRegisterById = _riskRegisterDbContext.errorRegisters.Where(t => t.Id == Id).FirstOrDefault();
+            var _getErrorRegisterById = _riskRegisterDbContext.ErrorRegisters.Where(t => t.Id == Id).FirstOrDefault();
             return _getErrorRegisterById; 
         }
 
@@ -78,7 +78,7 @@ namespace RiskRegisterII.ServiceHelper
                 existingRegisters.Remark = errorRegister.Remark;
                
 
-                _riskRegisterDbContext.errorRegisters.Update(existingRegisters);
+                _riskRegisterDbContext.ErrorRegisters.Update(existingRegisters);
                 _riskRegisterDbContext.SaveChanges();
                  return existingRegisters.Id;
                 

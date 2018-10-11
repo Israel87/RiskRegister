@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RiskRegister.Models;
@@ -31,12 +32,14 @@ namespace RiskRegisterII.Controllers
             _riskType = riskType;
             _registerRisk = registerRisk;
             _complaintRegister = complaintRegister;
+
         }
 
-
+        
         // GET: RegisterRisk
         public ActionResult Index()
         {
+            //ViewBag.SessionEmail =  HttpContext.Session.GetString("SessionEmail");
             var _registerRisks = _registerRisk.AllRiskRegisters();
             var _riskTypes = _riskType.AllRiskTypes();
 
@@ -54,25 +57,41 @@ namespace RiskRegisterII.Controllers
 
                         };
 
-            //RegisterRiskVM registerRiskVM = new RegisterRiskVM();
-            //foreach (var item in query)
-            //{
-            //    registerRiskVM.Activity = item.regRisks.Activity;
-            //    registerRiskVM.InherentRisk = item.regRisks.InherentRisk;
-            //    registerRiskVM.Mitigants = item.regRisks.Mitigants;
-            //    registerRiskVM.RiskTypeName = item.riskTypes.Name;
-            //    registerRiskVM.LoggedBy = item.regRisks.LoggedBy;
-
-            //}
-
             return View(query);
         }
 
+
+
+        //[AllowAnonymous]
+        public IActionResult TestDB()
+        {
+            var testresult = _registerRisk.AllRiskRegisters();
+            return View(testresult);
+        }
+
+
         // GET: RegisterRisk/Details/5
+        [Authorize(Roles ="SuperAdmin")]
         public ActionResult Details(int id)
         {
-            var _getRegister = _registerRisk.GetRiskRegister(id);
-            return View(_getRegister);
+            //var _registerRisks = _registerRisk.AllRiskRegisters();
+            var _riskTypes = _riskType.AllRiskTypes();
+
+            var _result = _registerRisk.GetRiskRegister(id);
+            var _returnView = _riskType.AllRiskTypes().Where(t => t.Id == _result.RiskTypeId).FirstOrDefault();
+
+            var registerVM = new RegisterRiskVM()
+            {
+                Id = _result.Id,
+                Activity = _result.Activity,
+                InherentRisk = _result.InherentRisk,
+                LoggedBy = _result.LoggedBy,
+                RiskTypeName = _returnView.Name,
+                Mitigants = _result.Mitigants,
+                DateCreated = _result.DateCreated
+            };
+
+            return View(registerVM);
         }
 
         // GET: RegisterRisk/Create
@@ -138,8 +157,23 @@ namespace RiskRegisterII.Controllers
         // GET: RegisterRisk/Delete/5
         public ActionResult Delete(int id)
         {
-            var _getRegister = _registerRisk.GetRiskRegister(id);
-            return View(_getRegister);
+            var _riskTypes = _riskType.AllRiskTypes();
+
+            var _result = _registerRisk.GetRiskRegister(id);
+            var _returnView = _riskType.AllRiskTypes().Where(t => t.Id == _result.RiskTypeId).FirstOrDefault();
+
+            var registerVM = new RegisterRiskVM()
+            {
+                Id = _result.Id,
+                Activity = _result.Activity,
+                InherentRisk = _result.InherentRisk,
+                LoggedBy = _result.LoggedBy,
+                RiskTypeName = _returnView.Name,
+                Mitigants = _result.Mitigants,
+                DateCreated = _result.DateCreated
+            };
+
+            return View(registerVM);
         }
 
         // POST: RegisterRisk/Delete/5

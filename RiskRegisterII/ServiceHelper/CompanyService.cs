@@ -24,7 +24,7 @@ namespace RiskRegisterII.ServiceHelper
             {
                 if (company != null)
                 {
-                    _riskRegisterDbContext.companies.Add(company);
+                    _riskRegisterDbContext.Companies.Add(company);
                     _riskRegisterDbContext.SaveChanges();
                     return company.Id;
                 }
@@ -40,7 +40,7 @@ namespace RiskRegisterII.ServiceHelper
 
         public void DeleteCompany(int Id)
         {
-            var _getCompany = _riskRegisterDbContext.companies.FirstOrDefault(t => t.Id == Id);
+            var _getCompany = _riskRegisterDbContext.Companies.FirstOrDefault(t => t.Id == Id);
             _riskRegisterDbContext.Remove(_getCompany);
             _riskRegisterDbContext.SaveChanges();
            
@@ -48,13 +48,13 @@ namespace RiskRegisterII.ServiceHelper
 
         public Company GetCompany(int Id)
         {
-            return _riskRegisterDbContext.companies.Where(t=>t.Id ==Id).FirstOrDefault();
+            return _riskRegisterDbContext.Companies.Where(t=>t.Id ==Id).FirstOrDefault();
         }
 
 
         public ICollection<Company> AllCompanies()
         {
-            return _riskRegisterDbContext.companies.ToList();
+            return _riskRegisterDbContext.Companies.ToList();
         }
 
         public int UpdateCompany(int id, Company company)
@@ -64,7 +64,7 @@ namespace RiskRegisterII.ServiceHelper
             {
                 var existingDetails = _getCompanyDetails;
                 existingDetails.Name = _getCompanyDetails.Name;
-                _riskRegisterDbContext.companies.Update(existingDetails);
+                _riskRegisterDbContext.Companies.Update(existingDetails);
                 _riskRegisterDbContext.SaveChanges();
                 return existingDetails.Id;
             }

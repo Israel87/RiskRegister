@@ -20,12 +20,12 @@ namespace RiskRegisterII.ServiceHelper
 
         public ICollection<RiskType> AllRiskTypes()
         {
-            return _riskRegisterDbContext.riskTypes.ToList();
+            return _riskRegisterDbContext.RiskTypes.ToList();
         }
 
         public RiskType GetRiskType(int Id)
         {
-            return _riskRegisterDbContext.riskTypes.FirstOrDefault(risk =>risk.Id == Id);
+            return _riskRegisterDbContext.RiskTypes.FirstOrDefault(risk =>risk.Id == Id);
         }
         public void DeleteRiskType(int Id)
         {
@@ -41,7 +41,7 @@ namespace RiskRegisterII.ServiceHelper
             {
                 if (riskType != null)
                 {
-                    _riskRegisterDbContext.riskTypes.Add(riskType);
+                    _riskRegisterDbContext.RiskTypes.Add(riskType);
                     _riskRegisterDbContext.SaveChanges();
                     return riskType.Id;
                 }
@@ -62,7 +62,7 @@ namespace RiskRegisterII.ServiceHelper
                 var _existingRiskType = _getRiskType;
                 _existingRiskType.Name = riskType.Name;
 
-                _riskRegisterDbContext.riskTypes.Update(_existingRiskType);
+                _riskRegisterDbContext.RiskTypes.Update(_existingRiskType);
                 _riskRegisterDbContext.SaveChanges();
 
                 return _existingRiskType.Id;

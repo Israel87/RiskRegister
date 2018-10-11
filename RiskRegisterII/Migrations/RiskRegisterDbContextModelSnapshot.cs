@@ -60,7 +60,7 @@ namespace RiskRegisterII.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("companies");
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("RiskRegister.Models.Department", b =>
@@ -79,7 +79,7 @@ namespace RiskRegisterII.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("departments");
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("RiskRegister.Models.RiskMonitor", b =>
@@ -106,7 +106,7 @@ namespace RiskRegisterII.Migrations
 
                     b.HasIndex("RiskTypeId");
 
-                    b.ToTable("riskMonitors");
+                    b.ToTable("RiskMonitors");
                 });
 
             modelBuilder.Entity("RiskRegister.Models.RiskType", b =>
@@ -125,7 +125,7 @@ namespace RiskRegisterII.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("riskTypes");
+                    b.ToTable("RiskTypes");
                 });
 
             modelBuilder.Entity("RiskRegisterII.Models.ComplaintRegister", b =>
@@ -150,7 +150,7 @@ namespace RiskRegisterII.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("complaintRegisters");
+                    b.ToTable("ComplaintRegisters");
                 });
 
             modelBuilder.Entity("RiskRegisterII.Models.ErrorRegisterModel", b =>
@@ -191,7 +191,7 @@ namespace RiskRegisterII.Migrations
 
                     b.HasIndex("RiskTypeId");
 
-                    b.ToTable("errorRegisters");
+                    b.ToTable("ErrorRegisters");
                 });
 
             modelBuilder.Entity("RiskRegisterII.Models.RegisterRisk", b =>
@@ -218,7 +218,112 @@ namespace RiskRegisterII.Migrations
 
                     b.HasIndex("RiskTypeId");
 
-                    b.ToTable("riskRegisters");
+                    b.ToTable("RiskRegisters");
+                });
+
+            modelBuilder.Entity("RiskRegisterII.Models.Role", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("EnteredBy");
+
+                    b.Property<DateTime>("EntryDate");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("RiskRegisterII.Models.User", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ConfirmationToken");
+
+                    b.Property<string>("EnteredBy");
+
+                    b.Property<DateTime>("EntryDate");
+
+                    b.Property<bool>("IsBlocked");
+
+                    b.Property<bool>("IsConfirm");
+
+                    b.Property<string>("Password");
+
+                    b.Property<string>("PasswordRecovery");
+
+                    b.Property<string>("Username");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("Username")
+                        .IsUnique()
+                        .HasFilter("[Username] IS NOT NULL");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("RiskRegisterII.Models.UserDetail", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("EnteredBy");
+
+                    b.Property<DateTime>("EntryDate");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<int>("Gender");
+
+                    b.Property<string>("Lastname");
+
+                    b.Property<string>("MiddleName");
+
+                    b.Property<string>("Phone");
+
+                    b.Property<int>("UserID");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("UserID")
+                        .IsUnique();
+
+                    b.ToTable("UserDetails");
+                });
+
+            modelBuilder.Entity("RiskRegisterII.Models.UserRole", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("EnteredBy");
+
+                    b.Property<DateTime>("EntryDate");
+
+                    b.Property<int>("RoleID");
+
+                    b.Property<int>("UserID");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("RoleID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("RiskRegister.Models.ActionTaken", b =>
@@ -258,6 +363,27 @@ namespace RiskRegisterII.Migrations
                     b.HasOne("RiskRegister.Models.RiskType", "RiskType")
                         .WithMany()
                         .HasForeignKey("RiskTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RiskRegisterII.Models.UserDetail", b =>
+                {
+                    b.HasOne("RiskRegisterII.Models.User", "User")
+                        .WithOne("UserDetail")
+                        .HasForeignKey("RiskRegisterII.Models.UserDetail", "UserID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RiskRegisterII.Models.UserRole", b =>
+                {
+                    b.HasOne("RiskRegisterII.Models.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("RiskRegisterII.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

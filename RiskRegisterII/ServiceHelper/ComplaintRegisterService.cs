@@ -27,7 +27,7 @@ namespace RiskRegisterII.ServiceHelper
                     complaintRegister.DateReceived = DateTime.Now;
                     complaintRegister.Status = RiskRegister.CustomEnum.Enum.ProcessStatus.Pending;
                 
-                    _riskRegisterDbContext.complaintRegisters.Add(complaintRegister);
+                    _riskRegisterDbContext.ComplaintRegisters.Add(complaintRegister);
                     _riskRegisterDbContext.SaveChanges();
                     return complaintRegister.Id;
                 }
@@ -42,12 +42,12 @@ namespace RiskRegisterII.ServiceHelper
 
         public ICollection<ComplaintRegister> AllComplaints()
         {
-            return _riskRegisterDbContext.complaintRegisters.ToList();
+            return _riskRegisterDbContext.ComplaintRegisters.ToList();
         }
 
         public ComplaintRegister GetComplaint(int Id)
         {
-            var _getComplaintById = _riskRegisterDbContext.complaintRegisters.FirstOrDefault(t => t.Id == Id);
+            var _getComplaintById = _riskRegisterDbContext.ComplaintRegisters.FirstOrDefault(t => t.Id == Id);
             return _getComplaintById;
         }
 
@@ -57,7 +57,7 @@ namespace RiskRegisterII.ServiceHelper
             var _getComplaintById = GetComplaint(Id);
             if(_getComplaintById != null)
             {
-                _riskRegisterDbContext.complaintRegisters.Remove(_getComplaintById);
+                _riskRegisterDbContext.ComplaintRegisters.Remove(_getComplaintById);
                 _riskRegisterDbContext.SaveChanges();
             }
         } 
@@ -74,7 +74,7 @@ namespace RiskRegisterII.ServiceHelper
                 existingDetails.PhoneNumber = complaintRegister.PhoneNumber;
                 existingDetails.EmailAddress = complaintRegister.EmailAddress;
 
-                _riskRegisterDbContext.complaintRegisters.Update(existingDetails);
+                _riskRegisterDbContext.ComplaintRegisters.Update(existingDetails);
                 _riskRegisterDbContext.SaveChanges();
                 return existingDetails.Id;
             }

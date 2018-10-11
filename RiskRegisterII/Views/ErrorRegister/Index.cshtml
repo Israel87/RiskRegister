@@ -1,97 +1,109 @@
-﻿@model IEnumerable<RiskRegisterII.Models.ErrorRegisterModel>
+﻿@model IEnumerable<RiskRegisterII.Models.ViewModels.ErrorRegisterVM>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Error Register";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<br />
 
-<h3>Error Register</h3>
-<br /><br />
+<br/>
 
 <p>
-    <a asp-action="Create"><b>Create New</b> </a>
+    <a asp-action="Create">Create</a>
 </p>
-<br /><br />
-<table class="table">
+<br/>
+<table class="table table-responsive">
     <thead>
         <tr>
-            <th hidden>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateCreated)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ErrorType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Narration)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Officer)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ErrorStatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Remark)
-            </th>
-            <th>
-               Actions
-            </th>
-            @*<th>
-            @Html.DisplayNameFor(model => model.RiskTypeId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CompanyId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DepartmentId)
-        </th>*@
+                @*<th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.DateCreated)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ErrorType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Narration)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Officer)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ErrorStatus)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Remark)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RiskType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Company)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Department)
+                @*</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateUpdated)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UpdatedBy)
+                </th>*@
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td hidden>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateCreated)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ErrorType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Narration)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Officer)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ErrorStatus)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Remark)
-                </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.RiskTypeId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CompanyId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DepartmentId)
-                    </td>*@
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new {  id=item.Id  }) |
-                    @Html.ActionLink("Details", "Details", new {  id=item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-                </td>
-            </tr>
-        }
+@foreach (var item in Model) {
+        <tr>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ErrorType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Narration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Officer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ErrorStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Remark)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RiskType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Company)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.DateUpdated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedBy)
+            </td>*@
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id  }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id  })
+            </td>
+        </tr>
+}
     </tbody>
 </table>

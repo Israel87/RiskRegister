@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewData["Title"] = "Entry";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    <div class="container" style="text-align:right">
+        <h5>
+            <img src="~/images/user.png" width="30" height="30" /> @User.Identity.Name
+        </h5>
+    </div>
+}
+
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Register</h1>
+    <p class="lead">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It's built with default Bootstrap components and utilities with little customization.</p>
+</div>
+<div class="container">
+    <div class="card-deck mb-3 text-center">
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal"></h4>
+            </div>
+            <div class="card-body">
+                <br />
+                <img src="~/images/error-512.png" style="width: 100px; height:100px" />
+                <br />    <br />
+                <a class="btn btn-lg btn-block btn-outline-primary" asp-controller="RegisterRisk" asp-action="Index">Risks</a>
+                <br />    <br />
+            </div>
+        </div>
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal"></h4>
+            </div>
+            <div class="card-body">
+                <br />
+                <img src="~/images/icon_error-512.png" style="width: 100px; height:100px" />
+                <br />    <br />
+                <a class="btn btn-lg btn-block btn-outline-primary" asp-controller="ErrorRegister" asp-action="Index">Errors</a>
+                <br />    <br />
+            </div>
+        </div>
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal"></h4>
+            </div>
+            <div class="card-body">
+                <br />
+                <img src="~/images/Complaint-512.png" style="width: 100px; height:100px" />
+                <br />    <br />
+
+                <a class="btn btn-lg btn-block btn-outline-primary" asp-controller="ComplaintRegister" asp-action="Index">Complaints</a>
+                <br />    <br />
+            </div>
+        </div>
+    </div>
+
+</div>

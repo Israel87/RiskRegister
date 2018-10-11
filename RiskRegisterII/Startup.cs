@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,17 +17,17 @@ namespace RiskRegisterII
 {
     public class Startup
     {
-        //public Startup(IConfiguration configuration)
-        //{
-        //    Configuration = configuration;
-        //}
-        public Startup(IHostingEnvironment env)
+        public Startup(IConfiguration configuration)
         {
-            var builder = new ConfigurationBuilder().
-                SetBasePath(env.ContentRootPath).AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).
-                AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true).AddEnvironmentVariables();
-            Configuration = builder.Build();
+            Configuration = configuration;
         }
+        //public Startup(IHostingEnvironment env)
+        //{
+        //    var builder = new ConfigurationBuilder().
+        //        SetBasePath(env.ContentRootPath).AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).
+        //        AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true).AddEnvironmentVariables();
+        //    Configuration = builder.Build();
+        //}
         public IConfiguration Configuration { get; }
 
 
@@ -34,16 +35,31 @@ namespace RiskRegisterII
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            // Add Session here.
+            //services.AddSession(options => {
+            //    options.IdleTimeout = TimeSpan.FromMinutes(3);//You can set Time   
+            //});
+
             services.AddDbContext<RiskRegisterDbContext>(options => 
             options.UseSqlServer(Configuration.GetConnectionString("RiskRegisterConnection")));
 
             // adding the required services here.
+            services.AddScoped<IUserManager, UserManager>((arg) => new UserManager(services.BuildServiceProvider().GetRequiredService<RiskRegisterDbContext>()));
             services.AddScoped<IErrorRegister, ErrorRegisterService>((arg) => new ErrorRegisterService(services.BuildServiceProvider().GetRequiredService<RiskRegisterDbContext>()));
             services.AddScoped<IDepartment, DepartmentService>((arg) => new DepartmentService(services.BuildServiceProvider().GetRequiredService<RiskRegisterDbContext>()));
             services.AddScoped<ICompany, CompanyService>((arg) => new CompanyService(services.BuildServiceProvider().GetRequiredService<RiskRegisterDbContext>()));
             services.AddScoped<IRiskType, RiskTypeService>((arg) => new RiskTypeService(services.BuildServiceProvider().GetRequiredService<RiskRegisterDbContext>()));
             services.AddScoped<IComplaintRegister, ComplaintRegisterService>((arg) => new ComplaintRegisterService(services.BuildServiceProvider().GetRequiredService<RiskRegisterDbContext>()));
             services.AddScoped<IRegisterRisk, RegisterRiskService>((arg) => new RegisterRiskService(services.BuildServiceProvider().GetRequiredService<RiskRegisterDbContext>()));
+
+            // add cookie authentication
+            services.AddAuthentication("RiskManagement")
+                .AddCookie("RiskManagement", options =>
+                {
+                    options.AccessDeniedPath = new PathString("/Home/AccessDenied");
+                    options.LoginPath = new PathString("/Home");
+
+                });
 
         }
 
@@ -64,6 +80,9 @@ namespace RiskRegisterII
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseAuthentication();
+          //  app.UseSession(); 
 
             app.UseStaticFiles();
 

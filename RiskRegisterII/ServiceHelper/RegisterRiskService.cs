@@ -28,7 +28,7 @@ namespace RiskRegisterII.ServiceHelper
                   //  riskRegister.RiskTypeName = riskRegister.RiskType.Name;
                     riskRegister.Status = RiskRegister.CustomEnum.Enum.ProcessStatus.Pending;
 
-                    _riskRegisterDbContext.riskRegisters.Add(riskRegister);
+                    _riskRegisterDbContext.RiskRegisters.Add(riskRegister);
                     _riskRegisterDbContext.SaveChanges();
                     return riskRegister.Id;
                 }
@@ -43,12 +43,12 @@ namespace RiskRegisterII.ServiceHelper
 
         public ICollection<RegisterRisk> AllRiskRegisters()
         {
-            return _riskRegisterDbContext.riskRegisters.ToList();
+            return _riskRegisterDbContext.RiskRegisters.ToList();
         }
 
         public RegisterRisk GetRiskRegister(int Id)
         {
-            var _getRiskRegisterById = _riskRegisterDbContext.riskRegisters.FirstOrDefault(t =>t.Id == Id);
+            var _getRiskRegisterById = _riskRegisterDbContext.RiskRegisters.FirstOrDefault(t =>t.Id == Id);
             return _getRiskRegisterById;
         }
 
@@ -65,7 +65,7 @@ namespace RiskRegisterII.ServiceHelper
                 existingDetails.Activity = riskRegister.Activity;
                 existingDetails.RiskTypeId = riskRegister.RiskTypeId;
 
-                _riskRegisterDbContext.riskRegisters.Update(existingDetails);
+                _riskRegisterDbContext.RiskRegisters.Update(existingDetails);
                 _riskRegisterDbContext.SaveChanges();
                 return existingDetails.Id;
             }
@@ -78,7 +78,7 @@ namespace RiskRegisterII.ServiceHelper
             var _getRiskRegisterById = GetRiskRegister(Id);
             if (_getRiskRegisterById != null)
             {
-                _riskRegisterDbContext.riskRegisters.Remove(_getRiskRegisterById);
+                _riskRegisterDbContext.RiskRegisters.Remove(_getRiskRegisterById);
                 _riskRegisterDbContext.SaveChanges();
             }
 

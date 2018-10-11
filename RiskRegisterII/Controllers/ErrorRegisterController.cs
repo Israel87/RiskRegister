@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RiskRegister.Models;
 using RiskRegisterII.Models;
+using RiskRegisterII.Models.ViewModels;
 using RiskRegisterII.Services;
 
 namespace RiskRegisterII.Controllers
@@ -18,20 +19,51 @@ namespace RiskRegisterII.Controllers
         private readonly IDepartment _department;
         private readonly ICompany _company;
         private readonly IRiskType _riskType;
+        private readonly IUserManager _userManager;
 
-
-        public ErrorRegisterController(IErrorRegister errorRegister, IDepartment department, ICompany company, IRiskType riskType)
+        public ErrorRegisterController(IErrorRegister errorRegister, IDepartment department, ICompany company, IRiskType riskType, IUserManager userManager)
         {
-            _errorRegister = errorRegister; _company = company; _department = department; _riskType = riskType;
+            _errorRegister = errorRegister; _company = company; _department = department; _riskType = riskType; _userManager = userManager;
 
         }
 
-        [Route("/ErrorRegister")]
+        // [Route("/ErrorRegister")]
         // GET: ErrorRegister
         public ActionResult Index()
         {
+
+            var userId = User.Identity.Name;
+          
+            //var loggedInUser = _appUserService.GetAppUser(t => t.Id == userId).FirstOrDefault();
+
             var _returnRegisters = _errorRegister.AllErrorRegisters();
-            return View(_returnRegisters);
+            var _companyList = _company.AllCompanies();
+            var _departmentList = _department.AllDepartments();
+            var _riskList = _riskType.AllRiskTypes();
+
+            var query = from errors in _returnRegisters
+                        join companylist in _companyList on errors.CompanyId equals companylist.Id
+                        join departmentlist in _departmentList on errors.DepartmentId equals departmentlist.Id
+                        join risklist in _riskList on errors.RiskTypeId equals risklist.Id
+                        select new ErrorRegisterVM
+                        {
+                            Id = errors.Id,
+                            DateCreated = errors.DateCreated,
+                            ErrorType = errors.ErrorType,
+                            Narration = errors.Narration,
+                            Officer = errors.Officer,
+                            Status = errors.Status,
+                            ErrorStatus = errors.ErrorStatus,
+                            Remark = errors.Remark,
+                            RiskType = risklist.Name,
+                            Company = companylist.Name,
+                            Department = departmentlist.Name,
+                            DateUpdated = errors.DateUpdated,
+                            UpdatedBy = userId
+
+                        };
+
+            return View(query);
         }
 
         // GET: ErrorRegister/Details/5
