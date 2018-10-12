@@ -20,7 +20,7 @@
             <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
         </environment>*@
 </head>
-<body style="margin:50px">
+<body style="margin:50px;">
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
         <h5 class="my-0 mr-md-auto font-weight-normal">
             <img src="~/images/psllogo.png" style="width:75px; height:55px" />&nbsp;&nbsp;Risk Management
@@ -74,8 +74,9 @@
 
         }
         <br/>
-
-        @RenderBody()
+        <div id="image">
+            @RenderBody()
+        </div>
         <hr />
         <footer class="pt-4 my-md-5 pt-md-5 border-top">
             <div class="row pull-right">

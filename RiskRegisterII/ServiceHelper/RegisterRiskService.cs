@@ -1,4 +1,5 @@
-﻿using RiskRegisterII.Data;
+﻿using RiskRegister.Models;
+using RiskRegisterII.Data;
 using RiskRegisterII.Models;
 using RiskRegisterII.Services;
 using System;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RiskRegisterII.ServiceHelper
 {
-    public class RegisterRiskService : IRegisterRisk
+    public class RegisterRiskService : IRegisterRisk, IRiskType
     {
         private readonly RiskRegisterDbContext _riskRegisterDbContext;
 
@@ -19,7 +20,7 @@ namespace RiskRegisterII.ServiceHelper
 
         public int AddRiskRegister(RegisterRisk riskRegister)
         {
-
+            var _getRisk = GetRiskType(riskRegister.RiskTypeId);
             try
             {
                 if (riskRegister != null)
@@ -27,6 +28,7 @@ namespace RiskRegisterII.ServiceHelper
                     riskRegister.DateCreated = DateTime.Now;
                   //  riskRegister.RiskTypeName = riskRegister.RiskType.Name;
                     riskRegister.Status = RiskRegister.CustomEnum.Enum.ProcessStatus.Pending;
+                    riskRegister.RiskName = _getRisk.Name;
 
                     _riskRegisterDbContext.RiskRegisters.Add(riskRegister);
                     _riskRegisterDbContext.SaveChanges();
@@ -45,6 +47,7 @@ namespace RiskRegisterII.ServiceHelper
         {
             return _riskRegisterDbContext.RiskRegisters.ToList();
         }
+
 
         public RegisterRisk GetRiskRegister(int Id)
         {
@@ -89,6 +92,29 @@ namespace RiskRegisterII.ServiceHelper
             _riskRegisterDbContext.Dispose();
         }
 
-  
+        public int AddRiskType(RiskType riskType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public RiskType GetRiskType(int Id)
+        {
+            return _riskRegisterDbContext.RiskTypes.FirstOrDefault(risk => risk.Id == Id);
+        }
+
+        public ICollection<RiskType> AllRiskTypes()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int UpdateRiskType(int id, RiskType riskType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteRiskType(int Id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

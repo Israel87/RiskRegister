@@ -5,7 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using X.PagedList;
+using ReflectionIT.Mvc.Paging;
 using RiskRegister.Models;
+using RiskRegisterII.Data;
 using RiskRegisterII.Models;
 using RiskRegisterII.Models.ViewModels;
 using RiskRegisterII.Services;
@@ -14,6 +18,9 @@ namespace RiskRegisterII.Controllers
 {
     public class RegisterRiskController : Controller
     {
+        // the grand opener
+        private readonly RiskRegisterDbContext riskRegisterDbContext;
+        // ends here
 
         private readonly IErrorRegister _errorRegister;
         private readonly IDepartment _department;
@@ -23,9 +30,11 @@ namespace RiskRegisterII.Controllers
         private readonly IComplaintRegister _complaintRegister;
 
 
-        public RegisterRiskController(IErrorRegister errorRegister, IDepartment department,
+        public RegisterRiskController(RiskRegisterDbContext _riskRegisterDbContext, IErrorRegister errorRegister, IDepartment department,
             ICompany company, IRiskType riskType, IRegisterRisk registerRisk, IComplaintRegister complaintRegister)
         {
+            riskRegisterDbContext = _riskRegisterDbContext;
+
             _errorRegister = errorRegister;
             _department = department;
             _company = company;
@@ -37,27 +46,22 @@ namespace RiskRegisterII.Controllers
 
         
         // GET: RegisterRisk
-        public ActionResult Index()
+        public ActionResult Index(string searchValue, int? page)
         {
-            //ViewBag.SessionEmail =  HttpContext.Session.GetString("SessionEmail");
-            var _registerRisks = _registerRisk.AllRiskRegisters();
-            var _riskTypes = _riskType.AllRiskTypes();
+            var model = from records in riskRegisterDbContext.RiskRegisters
+                        select records;
+     
 
-            var query = from regRisks in _registerRisks
-                        join riskTypes in _riskTypes on regRisks.RiskTypeId equals riskTypes.Id
-                        select new RegisterRiskVM
-                        {
-                            Id = regRisks.Id,
-                           Activity = regRisks.Activity,
-                           InherentRisk = regRisks.InherentRisk,
-                           LoggedBy = regRisks.LoggedBy,
-                           RiskTypeName = riskTypes.Name,
-                           Mitigants = regRisks.Mitigants,
-                           DateCreated = regRisks.DateCreated
+            if (!string.IsNullOrEmpty(searchValue))
+            {
+                model = model.Where(c => c.RiskName.Contains(searchValue));
+            }
 
-                        };
+            int pageSize = 2;
+            int pageNumber = (page ?? 1);
 
-            return View(query);
+            return View(model.ToPagedList(pageNumber, pageSize));
+           
         }
 
 

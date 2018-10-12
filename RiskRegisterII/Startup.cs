@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using ReflectionIT.Mvc.Paging;
 using RiskRegisterII.Data;
 using RiskRegisterII.ServiceHelper;
 using RiskRegisterII.Services;
@@ -39,6 +40,8 @@ namespace RiskRegisterII
             //services.AddSession(options => {
             //    options.IdleTimeout = TimeSpan.FromMinutes(3);//You can set Time   
             //});
+
+            services.AddPaging();
 
             services.AddDbContext<RiskRegisterDbContext>(options => 
             options.UseSqlServer(Configuration.GetConnectionString("RiskRegisterConnection")));

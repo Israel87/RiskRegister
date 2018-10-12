@@ -1,79 +1,119 @@
-﻿@model IEnumerable<RiskRegisterII.Models.ViewModels.RegisterRiskVM>
-    <br /><br />
+﻿@*@model ReflectionIT.Mvc.Paging.PagingList<RiskRegisterII.Models.RegisterRisk>
+    @using ReflectionIT.Mvc.Paging
+    @addTagHelper *, ReflectionIT.Mvc.Paging*@
+
+@model X.PagedList.IPagedList<RiskRegisterII.Models.RegisterRisk>
+@using X.PagedList.Mvc;
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewData["Title"] = "Registered Risk";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<nav>
+         @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model })
+    </nav>*@
 
 
-    @{
-        ViewData["Title"] = "Risk Register";
-        Layout = "~/Views/Shared/_Layout.cshtml";
+<a asp-action="Create" class="btn btn-outline-primary">Create New</a><br /><br />
 
-   
-
-    }
-
-    <br />
-    <p>
-        <a asp-action="Create">Create New</a>
+<nav class="container bg-info">
+    <p style="margin-top:5px; padding-bottom:8px; text-align:right; color:#fff">
+        <b> List of registered risks.</b>
     </p>
-    <br /><br />
-    <table class="table">
-        <thead>
+</nav>
+<br />
+@using (Html.BeginForm("Index", "RegisterRisk", FormMethod.Post))
+{
+    <div class="">
+        Search by Risk Name:  @Html.TextBox("searchValue")
+        <input type="submit" value="Filter" style="border-radius:3px; width: 100px" />
+    </div>
+
+
+}
+
+<hr />
+<br />
+<table class="table table-bordered">
+
+    <thead>
+        <tr>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>*@
+            <th>
+                Activity
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.RiskTypeId)
+                </th>*@
+            <th>
+                Risk Type
+            </th>
+            <th>
+                Inherent Risk
+            </th>
+            <th>
+                Mitigants
+            </th>
+            <th>
+                Logger
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Status
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Activity)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.RiskTypeName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.InherentRisk)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Mitigants)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LoggedBy)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateCreated)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Status)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Activity)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RiskTypeName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.InherentRisk)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Mitigants)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LoggedBy)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateCreated)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Status)
-                    </td>
-                    <td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Activity)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.RiskTypeId)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.RiskName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InherentRisk)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mitigants)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoggedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCreated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    <button class="btn btn-outline-default">
                         @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                         @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                         @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <br /><br /><br />
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@*@Html.p(Model., page => Url.Action("Index", new { page, pagesize = 5 }))*@

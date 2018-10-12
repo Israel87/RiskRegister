@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RiskRegisterII.Data;
 
 namespace RiskRegisterII.Migrations
 {
     [DbContext(typeof(RiskRegisterDbContext))]
-    partial class RiskRegisterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181012082407_editedregister")]
+    partial class editedregister
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

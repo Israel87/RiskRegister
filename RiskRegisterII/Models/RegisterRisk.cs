@@ -15,7 +15,7 @@ namespace RiskRegisterII.Models
         public string Activity { get; set; }
         [DisplayName("Risk Type")]
         public int RiskTypeId { get; set; }
-        public RiskType RiskType { get; set; }
+        public string RiskName { get; set; }
         [DisplayName("Inherent Risk")]
         public string InherentRisk { get; set; }
         [DisplayName("Mitigants")]
