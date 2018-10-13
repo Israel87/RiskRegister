@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using X.PagedList;
-using ReflectionIT.Mvc.Paging;
+
 using RiskRegister.Models;
 using RiskRegisterII.Data;
 using RiskRegisterII.Models;

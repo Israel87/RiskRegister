@@ -3,9 +3,10 @@
     @addTagHelper *, ReflectionIT.Mvc.Paging*@
 
 @model X.PagedList.IPagedList<RiskRegisterII.Models.RegisterRisk>
-@using X.PagedList.Mvc;
+@using X.PagedList.Mvc.Core;
 
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@using X.PagedList;
+
 
 @{
     ViewData["Title"] = "Registered Risk";
@@ -17,7 +18,7 @@
     </nav>*@
 
 
-<a asp-action="Create" class="btn btn-outline-primary">Create New</a><br /><br />
+<a asp-action="Create" class="btn btn-outline-info">Create New</a><br /><br />
 
 <nav class="container bg-info">
     <p style="margin-top:5px; padding-bottom:8px; text-align:right; color:#fff">
@@ -27,9 +28,9 @@
 <br />
 @using (Html.BeginForm("Index", "RegisterRisk", FormMethod.Post))
 {
-    <div class="">
-        Search by Risk Name:  @Html.TextBox("searchValue")
-        <input type="submit" value="Filter" style="border-radius:3px; width: 100px" />
+    <div class="input-group col-lg-4">
+        @Html.TextBox("searchValue", "Search by Risk Name", new { @class ="form-control"})
+        <input type="submit" value="Filter" class="btn btn-outline-info" style="width: 100px" />
     </div>
 
 
@@ -37,7 +38,7 @@
 
 <hr />
 <br />
-<table class="table table-bordered">
+<table class="table table-bordered" style="color:teal">
 
     <thead>
         <tr>
@@ -115,5 +116,7 @@
 </table>
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+<br/><br/>
 
-@*@Html.p(Model., page => Url.Action("Index", new { page, pagesize = 5 }))*@
+         @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+

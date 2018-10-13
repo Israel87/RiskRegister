@@ -3,18 +3,77 @@
     ViewData["Title"] = "Entry";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    <div class="container" style="text-align:right">
-        <h5>
-            <img src="~/images/user.png" width="30" height="30" /> @User.Identity.Name
-        </h5>
-    </div>
 }
 
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4">Register</h1>
-    <p class="lead">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It's built with default Bootstrap components and utilities with little customization.</p>
+
+<div class="pull-right" >
+    <img src="~/images/user.png" width="30" height="30" /> @User.Identity.Name
 </div>
-<div class="container" >
+
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    @*<p class="lead">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It's built with default Bootstrap components and utilities with little customization.</p>*@
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon" style="background-color: #00c0ef">
+                    <i class="ion ion-ios-pulse" style="color:#fff"></i>
+                </span>
+                <div class="info-box-content">
+                    <br />
+                    <span class="info-box-text" style="margin:15px"> Risk Types</span><br />
+                    <span class="info-box-number" style="margin:15px">12</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon" style="background-color: #dd4b39">
+
+                    <i class="ion ion-ios-settings"  style="color:#fff"></i>
+                </span>
+                <div class="info-box-content">
+                    <br/>
+                    <span class="info-box-text" style="margin:15px">Departments</span><br/>
+                    <span class="info-box-number" style="margin:15px">5</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon" style="background-color: #84d46c">
+                    <i class="ion ion-ios-keypad"  style="color:#fff"></i>
+                </span>
+                <div class="info-box-content">
+                    <br />
+                    <span class="info-box-text" style="margin:15px"> Companies</span><br />
+                    <span class="info-box-number" style="margin:15px">2</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon" style="background-color: #f39c12">
+                    <i class="ion ion-ios-people-outline" style="color:#fff"></i>
+                </span>
+                <div class="info-box-content">
+                    <br />
+                    <span class="info-box-text" style="margin:15px">Registered Users</span><br />
+                    <span class="info-box-number" style="margin:15px">25</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+    </div>
+    <br /><br />
 
     <div class="card-deck mb-3 text-center">
         <div class="card mb-4 shadow-sm">
@@ -23,21 +82,9 @@
             </div>
             <div class="card-body">
                 <br />
-                <img src="~/images/error-512.png" style="width: 100px; height:100px" />
+                <img src="~/images/risk3.png" style="width: 100px; height:100px" />
                 <br />    <br />
-                <a class="btn btn-lg btn-block btn-outline-primary" asp-controller="RegisterRisk" asp-action="Index">Risks</a>
-                <br />    <br />
-            </div>
-        </div>
-        <div class="card mb-4 shadow-sm">
-            <div class="card-header">
-                <h4 class="my-0 font-weight-normal"></h4>
-            </div>
-            <div class="card-body">
-                <br />
-                <img src="~/images/icon_error-512.png" style="width: 100px; height:100px" />
-                <br />    <br />
-                <a class="btn btn-lg btn-block btn-outline-primary" asp-controller="ErrorRegister" asp-action="Index">Errors</a>
+                <a class="btn btn-lg btn-block btn-outline-success" asp-controller="RegisterRisk" asp-action="Index">Risks</a>
                 <br />    <br />
             </div>
         </div>
@@ -47,10 +94,22 @@
             </div>
             <div class="card-body">
                 <br />
-                <img src="~/images/Complaint-512.png" style="width: 100px; height:100px" />
+                <img src="~/images/error.png" style="width: 100px; height:100px" />
+                <br />    <br />
+                <a class="btn btn-lg btn-block btn-outline-success" asp-controller="ErrorRegister" asp-action="Index">Errors</a>
+                <br />    <br />
+            </div>
+        </div>
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal"></h4>
+            </div>
+            <div class="card-body">
+                <br />
+                <img src="~/images/totalcomplaints.png" style="width: 100px; height:100px" />
                 <br />    <br />
 
-                <a class="btn btn-lg btn-block btn-outline-primary" asp-controller="ComplaintRegister" asp-action="Index">Complaints</a>
+                <a class="btn btn-lg btn-block btn-outline-success" asp-controller="ComplaintRegister" asp-action="Index">Complaints</a>
                 <br />    <br />
             </div>
         </div>

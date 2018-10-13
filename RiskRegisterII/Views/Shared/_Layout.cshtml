@@ -6,8 +6,14 @@
     <title>@ViewData["Title"] - Risk Management</title>
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" />
+
+    <link href="~/css/ionicons.min.css" rel="stylesheet" />
+    @*<link href="~/css/AdminLTE.min.css" rel="stylesheet" />*@
+    <link href="~/css/_all-skins.min.css" rel="stylesheet" />
+    <link href="~/css/jquery-jvectormap.css" rel="stylesheet" />
     <link href="~/css/pricing.css" rel="stylesheet">
+
 
     @*<environment include="Development">
             <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -23,57 +29,31 @@
 <body style="margin:50px;">
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
         <h5 class="my-0 mr-md-auto font-weight-normal">
-            <img src="~/images/psllogo.png" style="width:75px; height:55px" />&nbsp;&nbsp;Risk Management
+            <img src="~/images/parthianlogo2.png" style="width:120px; height:60px;" />&nbsp;&nbsp;Risk Register
         </h5>
         <nav class="my-2 my-md-0 mr-md-3">
             <a asp-area="" class="p-2 text-dark" asp-controller="RegisterRisk" asp-action="Index" style="color:#fff">Risks</a>
-            <a asp-area=""  class="p-2 text-dark" asp-controller="ErrorRegister" asp-action="Index" style="color:#fff">Errors</a>
+            <a asp-area="" class="p-2 text-dark" asp-controller="ErrorRegister" asp-action="Index" style="color:#fff">Errors</a>
             <a asp-area="" class="p-2 text-dark" asp-controller="ComplaintRegister" asp-action="Index" style="color:#fff">Complaints</a>
             @*<a class="p-2 text-dark" href="#">Pricing</a>*@
         </nav>
-        <a class="btn btn-outline-primary" asp-controller="Home" asp-action="Logout">Log-Out</a>
+        <a class="btn btn-outline-danger" asp-controller="Home" asp-action="Logout">Log-Out</a>
     </div>
-
-
-
-    @*<nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"><b style="color:#fff">Risk Management</b></a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav pull-right">
-                        <li><a asp-area="" asp-controller="RegisterRisk" asp-action="Index" style="color:#fff">Risks</a></li>
-                        <li><a asp-area="" asp-controller="ErrorRegister" asp-action="Index" style="color:#fff">Errors</a></li>
-                        <li><a asp-area="" asp-controller="ComplaintRegister" asp-action="Index" style="color:#fff">Complaints</a></li>
-
-                    </ul>
-                </div>
-            </div>
-        </nav>*@
     <br />
     <div class="container body-content">
         @if (User.Identity.IsAuthenticated)
         {
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/Home/Entry"><img src="~/images/home_icon.png" width="20" height="20" /></a></li>
-                <li class="breadcrumb-item"><a href="#">@ViewData["Title"]</a></li>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/Home/Entry"><img src="~/images/home_icon.png" width="20" height="20" /></a></li>
+                    <li class="breadcrumb-item"><a href="#">@ViewData["Title"]</a></li>
+                </ol>
 
-             
-            </ol>
-        </nav>
-        <br/>
-    
+            </nav>
+
 
         }
-        <br/>
+
         <div id="image">
             @RenderBody()
         </div>
@@ -81,8 +61,8 @@
         <footer class="pt-4 my-md-5 pt-md-5 border-top">
             <div class="row pull-right">
                 <div class="col-6 col-md input-group">
-                    
-                    <p>&nbsp;&nbsp;<b>&copy; 2018 - PSL Capital | Risk Management.</b></p>
+
+                    <p style="color: #e7cc07">&nbsp;&nbsp;&copy; 2018 - PARTHIAN GROUP |<b style="color:teal"> Risk Register.</b></p>
                 </div>
 
 
@@ -114,12 +94,18 @@
 
     @RenderSection("Scripts", required: false)
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    @*<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>*@
+    <script src="~/js/slim.js"></script>
     @*<script src="~/lib/jquery/dist/jquery.js"></script>*@
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
     <script src="~/assets/js/vendor/popper.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/js/adminlte.min.js"></script>
+
+    <script src="~/js/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="~/js/jquery-jvectormap-world-mill-en.js"></script>
     <script src="~/assets/js/vendor/holder.min.js"></script>
+    <script src="~/js/demo.js"></script>
     <script src="~/js/site.js"></script>
 
     <script>
