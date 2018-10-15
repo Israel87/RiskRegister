@@ -21,10 +21,24 @@ namespace RiskRegister.Controllers
     {
 
         private readonly IUserManager _userManager;
+        private readonly IErrorRegister _errorRegister;
+        private readonly IDepartment _department;
+        private readonly ICompany _company;
+        private readonly IRiskType _riskType;
+        private readonly IRegisterRisk _registerRisk;
+        private readonly IComplaintRegister _complaintRegister;
 
-        public HomeController(IUserManager userManager)
+        public HomeController(IUserManager userManager, IErrorRegister errorRegister, 
+            IDepartment department, ICompany company, IRiskType riskType, IRegisterRisk registerRisk, 
+            IComplaintRegister complaintRegister)
         {
             _userManager = userManager;
+            _errorRegister = errorRegister;
+            _department = department;
+            _company = company;
+            _riskType = riskType;
+            _registerRisk = registerRisk;
+            _complaintRegister = complaintRegister;
         }
 
 
@@ -36,6 +50,12 @@ namespace RiskRegister.Controllers
 
         public IActionResult Entry()
         {
+            // view bag values for the front end 
+            ViewBag.CompanyCount = _company.AllCompanies().Count();
+            ViewBag.DepartmentCount = _department.AllDepartments().Count();
+            ViewBag.RiskTypeCount = _riskType.AllRiskTypes().Count();
+            ViewBag.RegisteredRisks = _registerRisk.AllRiskRegisters().Count();
+
             return View();
         }
 
