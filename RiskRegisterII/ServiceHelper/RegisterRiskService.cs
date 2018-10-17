@@ -58,6 +58,7 @@ namespace RiskRegisterII.ServiceHelper
         public int UpdateRiskRegister(int id, RegisterRisk riskRegister)
         {
             var _getRiskRegisterById = GetRiskRegister(id);
+            var _getRisk = GetRiskType(riskRegister.RiskTypeId);
             if (_getRiskRegisterById != null)
             {
                 var existingDetails = _getRiskRegisterById;
@@ -66,7 +67,8 @@ namespace RiskRegisterII.ServiceHelper
                 existingDetails.Id = riskRegister.Id;
                 existingDetails.LoggedBy = riskRegister.LoggedBy;
                 existingDetails.Activity = riskRegister.Activity;
-                existingDetails.RiskTypeId = riskRegister.RiskTypeId;
+                existingDetails.RiskName = _getRisk.Name;
+                existingDetails.RiskTypeId = _getRisk.Id;
 
                 _riskRegisterDbContext.RiskRegisters.Update(existingDetails);
                 _riskRegisterDbContext.SaveChanges();

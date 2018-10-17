@@ -42,7 +42,7 @@ namespace RiskRegister.Controllers
         }
 
 
-        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        //[ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Index()
         {
             return View();
